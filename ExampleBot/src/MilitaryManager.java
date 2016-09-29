@@ -100,7 +100,7 @@ public class MilitaryManager{
 	{
 		try
 		{
-			updateArmyRatio();
+			//updateArmyRatio();
 			updateArmyCount();
 		}
 		catch(Exception e)
@@ -148,7 +148,8 @@ public class MilitaryManager{
      */
     private void updateArmyCount()
     {
-    	armyCount = self.completedUnitCount(UnitType.Terran_Marine) + self.completedUnitCount(UnitType.Terran_Medic);
+    	armyCount = self.completedUnitCount(UnitType.Zerg_Zergling) + self.completedUnitCount(UnitType.Terran_Medic) +
+    			self.completedUnitCount(UnitType.Terran_Marine);
     }
     
     /**
@@ -166,6 +167,12 @@ public class MilitaryManager{
     	
     	armyRatio.put(UnitType.Terran_Marine, marineCount/total);
     	armyRatio.put(UnitType.Terran_Medic, medicCount/total);
+    	
+    	if(!squads.get(SquadType.Scout).isEmpty()){
+    		Unit scout = squads.get(SquadType.Scout).getUnits().get(0);
+    		if(!scout.exists())
+    			squads.get(SquadType.Scout).removeUnit(scout);
+    	}
     }
     
     /**
